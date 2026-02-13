@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friendship 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Prompt',sans-serif}
+
+body{
+background:#eef1f6;
+color:#1a1a1a;
+overflow-x:hidden;
+}
+
+/* HERO */
+.hero{
+background:linear-gradient(135deg,#0f1a2b,#16263f);
+color:white;
+text-align:center;
+padding:80px 20px 120px;
+position:relative;
+}
+
+.hero img{
+width:220px;
+border-radius:20px;
+box-shadow:0 25px 50px rgba(0,0,0,0.5);
+margin-bottom:20px;
+transition:0.4s ease;
+}
+
+.hero img:hover{
+transform:scale(1.07) rotate(-1deg);
+}
+
+.hero h1{font-size:34px;font-weight:700}
+.hero p{color:#d4af37;margin-top:10px}
+
+/* FORM CARD */
+.container{
+max-width:750px;
+margin:-90px auto 80px;
+background:white;
+padding:40px;
+border-radius:25px;
+box-shadow:0 20px 60px rgba(0,0,0,0.1);
+position:relative;
+overflow:hidden;
+}
+
+/* PROGRESS BAR */
+.progress-bar{
+width:100%;
+height:8px;
+background:#ddd;
+border-radius:10px;
+margin-bottom:30px;
+overflow:hidden;
+}
+
+.progress{
+height:100%;
+width:33%;
+background:#d4af37;
+transition:0.4s ease;
+}
+
+/* FORM STEPS */
+.form-step{
+display:none;
+flex-direction:column;
+gap:20px;
+animation:fade 0.4s ease;
+}
+
+.form-step.active{
+display:flex;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateX(20px)}
+to{opacity:1;transform:translateX(0)}
+}
+
+label{font-weight:600;font-size:14px}
+
+input,select,textarea{
+padding:12px 15px;
+border-radius:12px;
+border:1px solid #ddd;
+font-size:14px;
+transition:0.3s;
+}
+
+input:focus,textarea:focus,select:focus{
+border-color:#d4af37;
+outline:none;
+}
+
+/* BUTTONS */
+.button-group{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
+
+.gold-btn{
+background:#d4af37;
+color:#111;
+border:none;
+padding:12px 25px;
+border-radius:30px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+position:relative;
+overflow:hidden;
+}
+
+.gold-btn:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(212,175,55,0.4);
+}
+
+.gold-btn::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,0.5),transparent);
+transition:0.6s;
+}
+
+.gold-btn:hover::before{
+left:100%;
+}
+
+.back-btn{
+background:#ccc;
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.6);
+display:flex;
+justify-content:center;
+align-items:center;
+opacity:0;
+visibility:hidden;
+transition:0.3s;
+}
+
+.modal.show{
+opacity:1;
+visibility:visible;
+}
+
+.modal-content{
+background:white;
+padding:40px;
+border-radius:20px;
+text-align:center;
+transform:scale(0.8);
+transition:0.3s;
+}
+
+.modal.show .modal-content{
+transform:scale(1);
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+<img src="profile.png" alt="profile">
+<h1>Friendship 2026</h1>
+<p>เขียนความทรงจำให้กันก่อนจบการศึกษา</p>
+</section>
+
+<div class="container">
+
+<div class="progress-bar">
+<div class="progress" id="progress"></div>
+</div>
+
+<form id="multiStepForm">
+
+<!-- STEP 1 -->
+<div class="form-step active">
+<label>ชื่อ - นามสกุล</label>
+<input type="text" required>
+
+<label>ชื่อเล่น</label>
+<input type="text">
+
+<label>ห้อง / ชั้น</label>
+<input type="text">
+
+<div class="button-group">
+<div></div>
+<button type="button" class="gold-btn" onclick="nextStep()">ถัดไป</button>
+</div>
+</div>
+
+<!-- STEP 2 -->
+<div class="form-step">
+<label>ระดับความประทับใจ (1-5)</label>
+<select required>
+<option value="">เลือกคะแนน</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+
+<label>ความคิดเห็นถึงเรา</label>
+<textarea rows="4" required></textarea>
+
+<div class="button-group">
+<button type="button" class="gold-btn back-btn" onclick="prevStep()">ย้อนกลับ</button>
+<button type="button" class="gold-btn" onclick="nextStep()">ถัดไป</button>
+</div>
+</div>
+
+<!-- STEP 3 -->
+<div class="form-step">
+<label>Facebook</label>
+<input type="text">
+
+<label>Instagram</label>
+<input type="text">
+
+<label>เบอร์โทร</label>
+<input type="text">
+
+<div class="button-group">
+<button type="button" class="gold-btn back-btn" onclick="prevStep()">ย้อนกลับ</button>
+<button type="submit" class="gold-btn">ส่งข้อความ 💛</button>
+</div>
+</div>
+
+</form>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="thankModal">
+<div class="modal-content">
+<h2>ขอบคุณมาก 💛</h2>
+<p>ข้อความของคุณถูกส่งเรียบร้อยแล้ว</p>
+<button class="gold-btn" onclick="closeModal()">ปิด</button>
+</div>
+</div>
+
+<script>
+const steps=document.querySelectorAll(".form-step");
+const progress=document.getElementById("progress");
+let currentStep=0;
+
+function updateStep(){
+steps.forEach((step,i)=>{
+step.classList.remove("active");
+if(i===currentStep){step.classList.add("active")}
+});
+progress.style.width=((currentStep+1)/steps.length)*100+"%";
+}
+
+function nextStep(){
+if(currentStep<steps.length-1){
+currentStep++;
+updateStep();
+}
+}
+
+function prevStep(){
+if(currentStep>0){
+currentStep--;
+updateStep();
+}
+}
+
+document.getElementById("multiStepForm").addEventListener("submit",function(e){
+e.preventDefault();
+document.getElementById("thankModal").classList.add("show");
+});
+
+function closeModal(){
+document.getElementById("thankModal").classList.remove("show");
+currentStep=0;
+updateStep();
+}
+</script>
+
+</body>
+</html>
