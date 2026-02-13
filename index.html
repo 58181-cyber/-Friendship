@@ -431,10 +431,9 @@ document.getElementById("multiStepForm")
 
     try {
   await fetch(scriptURL, {
-    method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify(data)
-  });
+  method: "POST",
+  body: new FormData(this)
+});
 
   document.getElementById("thankModal").classList.add("show");
   this.reset();
