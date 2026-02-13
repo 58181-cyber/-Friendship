@@ -11,75 +11,117 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Prompt',sans-serif}
 
 body{
-background:#eef1f6;
+background:linear-gradient(135deg,#0f1a2b,#16263f);
 color:#1a1a1a;
 overflow-x:hidden;
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
-background:linear-gradient(135deg,#0f1a2b,#16263f);
-color:white;
 text-align:center;
-padding:80px 20px 120px;
+padding:100px 20px 140px;
 position:relative;
+color:white;
 }
 
 .hero img{
-width:220px;
-border-radius:20px;
-box-shadow:0 25px 50px rgba(0,0,0,0.5);
-margin-bottom:20px;
-transition:0.4s ease;
+width:230px;
+border-radius:25px;
+box-shadow:0 30px 60px rgba(0,0,0,0.6);
+margin-bottom:25px;
+animation:float 5s ease-in-out infinite;
+transition:0.5s;
 }
 
-.hero img:hover{
-transform:scale(1.07) rotate(-1deg);
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+100%{transform:translateY(0)}
 }
 
-.hero h1{font-size:34px;font-weight:700}
-.hero p{color:#d4af37;margin-top:10px}
+.hero h1{
+font-size:38px;
+font-weight:700;
+letter-spacing:1px;
+}
 
-/* FORM CARD */
+.hero p{
+color:#d4af37;
+margin-top:12px;
+font-size:16px;
+}
+
+/* ===== CARD ===== */
 .container{
 max-width:750px;
-margin:-90px auto 80px;
-background:white;
-padding:40px;
-border-radius:25px;
-box-shadow:0 20px 60px rgba(0,0,0,0.1);
+margin:-90px auto 100px;
+background:#f5f6fa;
+padding:45px;
+border-radius:30px;
+box-shadow:0 30px 80px rgba(0,0,0,0.25);
 position:relative;
 overflow:hidden;
+backdrop-filter:blur(10px);
 }
 
-/* PROGRESS BAR */
+/* glow layer */
+.container::before{
+content:"";
+position:absolute;
+width:500px;
+height:500px;
+background:radial-gradient(circle, rgba(212,175,55,0.25), transparent 70%);
+top:-150px;
+left:-150px;
+filter:blur(60px);
+z-index:0;
+}
+
+.container > *{position:relative;z-index:1}
+
+/* ===== PROGRESS ===== */
 .progress-bar{
 width:100%;
-height:8px;
+height:10px;
 background:#ddd;
-border-radius:10px;
-margin-bottom:30px;
+border-radius:20px;
+margin-bottom:35px;
 overflow:hidden;
 }
 
 .progress{
 height:100%;
 width:33%;
-background:#d4af37;
-transition:0.4s ease;
+background:linear-gradient(90deg,#c6a634,#f5d76e);
+box-shadow:0 0 20px rgba(212,175,55,0.7);
+transition:0.5s ease;
+position:relative;
 }
 
-/* FORM STEPS */
+.progress::after{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+animation:shimmer 3s infinite;
+}
+
+@keyframes shimmer{
+100%{left:100%}
+}
+
+/* ===== FORM ===== */
 .form-step{
 display:none;
 flex-direction:column;
-gap:20px;
+gap:22px;
 animation:fade 0.4s ease;
 }
 
-.form-step.active{
-display:flex;
-}
+.form-step.active{display:flex}
 
 @keyframes fade{
 from{opacity:0;transform:translateX(20px)}
@@ -89,31 +131,33 @@ to{opacity:1;transform:translateX(0)}
 label{font-weight:600;font-size:14px}
 
 input,select,textarea{
-padding:12px 15px;
-border-radius:12px;
+padding:14px 18px;
+border-radius:14px;
 border:1px solid #ddd;
 font-size:14px;
 transition:0.3s;
+background:white;
 }
 
 input:focus,textarea:focus,select:focus{
 border-color:#d4af37;
+box-shadow:0 5px 20px rgba(212,175,55,0.3);
 outline:none;
 }
 
-/* BUTTONS */
+/* ===== BUTTONS ===== */
 .button-group{
 display:flex;
 justify-content:space-between;
-margin-top:10px;
+margin-top:15px;
 }
 
 .gold-btn{
-background:#d4af37;
+background:linear-gradient(90deg,#c6a634,#f5d76e);
 color:#111;
 border:none;
-padding:12px 25px;
-border-radius:30px;
+padding:13px 30px;
+border-radius:35px;
 font-weight:600;
 cursor:pointer;
 transition:0.3s;
@@ -122,35 +166,39 @@ overflow:hidden;
 }
 
 .gold-btn:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 25px rgba(212,175,55,0.4);
+transform:translateY(-4px);
+box-shadow:0 15px 30px rgba(212,175,55,0.5);
 }
 
-.gold-btn::before{
-content:"";
-position:absolute;
-top:0;
-left:-100%;
-width:100%;
-height:100%;
-background:linear-gradient(120deg,transparent,rgba(255,255,255,0.5),transparent);
-transition:0.6s;
-}
-
-.gold-btn:hover::before{
-left:100%;
+.gold-btn:active{
+transform:scale(0.95);
 }
 
 .back-btn{
 background:#ccc;
 }
 
-/* MODAL */
+/* ripple */
+.gold-btn span{
+position:absolute;
+background:rgba(255,255,255,0.6);
+border-radius:50%;
+transform:scale(0);
+animation:ripple 0.6s linear;
+pointer-events:none;
+}
+
+@keyframes ripple{
+to{transform:scale(4);opacity:0}
+}
+
+/* ===== MODAL ===== */
 .modal{
 position:fixed;
 top:0;left:0;
 width:100%;height:100%;
 background:rgba(0,0,0,0.6);
+backdrop-filter:blur(8px);
 display:flex;
 justify-content:center;
 align-items:center;
@@ -166,24 +214,61 @@ visibility:visible;
 
 .modal-content{
 background:white;
-padding:40px;
-border-radius:20px;
+padding:50px;
+border-radius:25px;
 text-align:center;
-transform:scale(0.8);
+transform:scale(0.7);
 transition:0.3s;
+box-shadow:0 25px 60px rgba(0,0,0,0.3);
 }
 
 .modal.show .modal-content{
 transform:scale(1);
 }
+  .rating{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.rating input{
+display:none;
+}
+
+.rating label{
+width:40px;
+height:40px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f0f0f0;
+cursor:pointer;
+transition:0.3s;
+font-weight:600;
+}
+
+.rating label:hover{
+background:#d4af37;
+color:#111;
+transform:translateY(-3px);
+}
+
+.rating input:checked + label{
+background:#d4af37;
+color:#111;
+box-shadow:0 8px 20px rgba(212,175,55,0.5);
+transform:scale(1.1);
+                }
 </style>
+  
 </head>
 
 <body>
 
 <section class="hero">
 <img src="profile.png" alt="profile">
-<h1>Friendship 2026</h1>
+<h1>FRIENDSHIPS To KANTUNG </h1>
 <p>เขียนความทรงจำให้กันก่อนจบการศึกษา</p>
 </section>
 
@@ -195,16 +280,15 @@ transform:scale(1);
 
 <form id="multiStepForm">
 
-<!-- STEP 1 -->
 <div class="form-step active">
 <label>ชื่อ - นามสกุล</label>
-<input type="text" required>
+<input name="fullname" required>
 
 <label>ชื่อเล่น</label>
-<input type="text">
+<input name="nickname">
 
 <label>ห้อง / ชั้น</label>
-<input type="text">
+<input name="classroom">
 
 <div class="button-group">
 <div></div>
@@ -212,20 +296,43 @@ transform:scale(1);
 </div>
 </div>
 
-<!-- STEP 2 -->
 <div class="form-step">
-<label>ระดับความประทับใจ (1-5)</label>
-<select required>
-<option value="">เลือกคะแนน</option>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-</select>
+<label>ระดับความประทับใจ (1-10)</label>
 
-<label>ความคิดเห็นถึงเรา</label>
-<textarea rows="4" required></textarea>
+<div class="rating">
+  <input type="radio" name="rating" value="1" id="r1">
+  <label for="r1">1</label>
+
+  <input type="radio" name="rating" value="2" id="r2">
+  <label for="r2">2</label>
+
+  <input type="radio" name="rating" value="3" id="r3">
+  <label for="r3">3</label>
+
+  <input type="radio" name="rating" value="4" id="r4">
+  <label for="r4">4</label>
+
+  <input type="radio" name="rating" value="5" id="r5">
+  <label for="r5">5</label>
+
+  <input type="radio" name="rating" value="6" id="r6">
+  <label for="r6">6</label>
+
+  <input type="radio" name="rating" value="7" id="r7">
+  <label for="r7">7</label>
+
+  <input type="radio" name="rating" value="8" id="r8">
+  <label for="r8">8</label>
+
+  <input type="radio" name="rating" value="9" id="r9">
+  <label for="r9">9</label>
+
+  <input type="radio" name="rating" value="10" id="r10">
+  <label for="r10">10</label>
+</div>
+
+<label>ความในใจถึงเรา</label>
+<textarea name="comment" rows="4" required></textarea>
 
 <div class="button-group">
 <button type="button" class="gold-btn back-btn" onclick="prevStep()">ย้อนกลับ</button>
@@ -233,16 +340,15 @@ transform:scale(1);
 </div>
 </div>
 
-<!-- STEP 3 -->
 <div class="form-step">
 <label>Facebook</label>
-<input type="text">
+<input name="facebook">
 
 <label>Instagram</label>
-<input type="text">
+<input name="instagram">
 
 <label>เบอร์โทร</label>
-<input type="text">
+<input name="phone">
 
 <div class="button-group">
 <button type="button" class="gold-btn back-btn" onclick="prevStep()">ย้อนกลับ</button>
@@ -252,12 +358,11 @@ transform:scale(1);
 
 </form>
 </div>
-
 <!-- MODAL -->
 <div class="modal" id="thankModal">
 <div class="modal-content">
-<h2>ขอบคุณมาก 💛</h2>
-<p>ข้อความของคุณถูกส่งเรียบร้อยแล้ว</p>
+<h2>ขอบคุณที่เขียนถึงกัน💛</h2>
+<p>ข้อความของคุณถูกบันทึกเรียบร้อยแล้ว</p>
 <button class="gold-btn" onclick="closeModal()">ปิด</button>
 </div>
 </div>
@@ -292,6 +397,7 @@ updateStep();
 document.getElementById("multiStepForm").addEventListener("submit",function(e){
 e.preventDefault();
 document.getElementById("thankModal").classList.add("show");
+this.reset();
 });
 
 function closeModal(){
@@ -299,7 +405,20 @@ document.getElementById("thankModal").classList.remove("show");
 currentStep=0;
 updateStep();
 }
+
+/* ripple effect */
+document.querySelectorAll(".gold-btn").forEach(btn=>{
+btn.addEventListener("click",function(e){
+let circle=document.createElement("span");
+let diameter=Math.max(btn.clientWidth,btn.clientHeight);
+circle.style.width=circle.style.height=diameter+"px";
+circle.style.left=e.clientX-btn.getBoundingClientRect().left-diameter/2+"px";
+circle.style.top=e.clientY-btn.getBoundingClientRect().top-diameter/2+"px";
+btn.appendChild(circle);
+setTimeout(()=>circle.remove(),600);
+});
+});
 </script>
 
 </body>
-</html>
+  </html>
