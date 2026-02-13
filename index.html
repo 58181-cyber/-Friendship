@@ -394,11 +394,6 @@ updateStep();
 }
 }
 
-document.getElementById("multiStepForm").addEventListener("submit",function(e){
-e.preventDefault();
-document.getElementById("thankModal").classList.add("show");
-this.reset();
-});
 
 function closeModal(){
 document.getElementById("thankModal").classList.remove("show");
@@ -417,6 +412,38 @@ circle.style.top=e.clientY-btn.getBoundingClientRect().top-diameter/2+"px";
 btn.appendChild(circle);
 setTimeout(()=>circle.remove(),600);
 });
+});
+  
+ // ===== SEND TO GOOGLE SHEET =====
+const scriptURL = "https://script.google.com/macros/s/AKfycbwJF_7iJaSNSO8isZ6Mp9jO8TKeY9FZCYpAGoqZvCjdBzJRCtrI4vrRZZvvKrH6BHlOFA/exec";
+
+document.getElementById("multiStepForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const data = {};
+
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+
+    try {
+        await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify(data),
+        });
+
+        document.getElementById("thankModal").classList.add("show");
+        this.reset();
+        currentStep = 0;
+        updateStep();
+
+    } catch (err) {
+        alert("ส่งข้อมูลไม่สำเร็จ");
+    }
+
 });
 </script>
 
